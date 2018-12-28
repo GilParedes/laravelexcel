@@ -26,37 +26,44 @@ class ImportController extends Controller
 
 	public function importExcel()
 	{
-		$inputFileType = 'Xlsx';
 
+		//define la extención del archivo
+		$inputFileType = 'Xlsx';
+		//obtinene la ruta del archivo cargado
 		$pathFileName = public_path('updateAvailabilityTemplate.xlsx');
+		//procesa el archivo para ser leído
 		$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 		$reader->setReadDataOnly(true);
 		$spreadsheet = $reader->load($pathFileName);
 		$mes = $spreadsheet->getActiveSheet()->getCell('B1')->getValue();
-		$mess = Carbon::parse($mes)->month;
+		// convierte mes de string a entero
+		$nmes = date('m',strtotime($mes));
+		//return $nmes;
 		$anio = $spreadsheet->getActiveSheet()->getCell('C1')->getValue();
 		$dataArray = $spreadsheet->getActiveSheet()
 		    ->rangeToArray(
-		        'A2:AG20',     // The worksheet range that we want to retrieve
+		        'A3:AG20',     // The worksheet range that we want to retrieve
 		        TRUE,        // Value that should be returned for empty cells
 		        TRUE,        // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
 		        TRUE,        // Should values be formatted (the equivalent of getFormattedValue() for each cell)
 		        TRUE         // Should the array be indexed by cell row and cell column
 		    );
-			var_dump($mes, $anio);
+			//var_dump($mes, $anio);
 		    foreach ($dataArray as $row) {
-		    	//var_dump($row);
-		    	if (isset($row)) {
-		    		for ($i=1; $i <32 ; $i++) { 
-		    		$fecha = Carbon::create($anio, 07, $i);
-		    		var_dump($fecha);
-		    	}
-		    }
-		    	
-		    }
 
-		//dd($mes, $anio, $dataArray);
+		    	var_dump($row);
 
+				    	
+		  }
 	}
 
 }
+
+
+/*if (isset($frow)) {
+				    		var_dump(count($frow));
+				    		for ($i=1; $i <32 ; $i++) { 
+				    		$fecha = Carbon::create($anio, $nmes, $i);
+				    		var_dump($fecha);
+				    		}
+				    	}*/
