@@ -17,3 +17,7 @@ Route::get('/', function () {
 
 Route::get('/export', 'ImportController@createExcel');
 Route::get('/import', 'ImportController@importExcel');
+Route::get('/iteraciones', 'ImportController@importInterators');
+Route::get('/indexes', 'ImportController@importIndexes');
+Route::get('/cordenadas', 'ImportController@importCordenadas');
+
